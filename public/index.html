@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pi LHM Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="dashboard">
+    <section id="pc-page" class="page active">
+      <header class="topbar">
+        <div>
+          <div class="label">SYSTEM</div>
+          <div class="title">PC MONITOR</div>
+        </div>
+
+        <div class="status">
+          <span id="status-dot" class="dot"></span>
+          <span id="status-text">Connecting</span>
+        </div>
+
+        <div class="clock" id="clock">--:--</div>
+      </header>
+
+      <section class="grid">
+        <article class="card configurable" data-card="cpu">
+          <div class="card-head">
+            <span id="cpu-title">CPU</span>
+            <span class="sub" id="cpu-sub">Processor</span>
+          </div>
+
+          <div class="big-row">
+            <div>
+              <div class="value split-value"><span id="cpu-primary-a">--</span><span class="unit" id="cpu-primary-a-unit"></span></div>
+              <div class="metric" id="cpu-primary-a-label">Temp</div>
+            </div>
+            <div>
+              <div class="value split-value"><span id="cpu-primary-b">--</span><span class="unit" id="cpu-primary-b-unit"></span></div>
+              <div class="metric" id="cpu-primary-b-label">Load</div>
+            </div>
+          </div>
+
+          <div class="bar-wrap"><div class="bar" id="cpu-bar"></div></div>
+          <div class="small-row"><span id="cpu-extra-a-label">Clock</span><strong id="cpu-extra-a">--</strong></div>
+          <div class="small-row"><span id="cpu-extra-b-label">Power</span><strong id="cpu-extra-b">--</strong></div>
+        </article>
+
+        <article class="card configurable" data-card="gpu">
+          <div class="card-head">
+            <span id="gpu-title">GPU</span>
+            <span class="sub" id="gpu-sub">Graphics</span>
+          </div>
+
+          <div class="big-row">
+            <div>
+              <div class="value split-value"><span id="gpu-primary-a">--</span><span class="unit" id="gpu-primary-a-unit"></span></div>
+              <div class="metric" id="gpu-primary-a-label">Core</div>
+            </div>
+            <div>
+              <div class="value split-value"><span id="gpu-primary-b">--</span><span class="unit" id="gpu-primary-b-unit"></span></div>
+              <div class="metric" id="gpu-primary-b-label">Load</div>
+            </div>
+          </div>
+
+          <div class="bar-wrap"><div class="bar" id="gpu-bar"></div></div>
+          <div class="small-row warning-line"><span id="gpu-extra-a-label">Hotspot</span><strong id="gpu-extra-a">--</strong></div>
+          <div class="small-row warning-line"><span id="gpu-extra-b-label">Memory Junc.</span><strong id="gpu-extra-b">--</strong></div>
+        </article>
+
+        <article class="card configurable" data-card="ram">
+          <div class="card-head"><span id="ram-title">RAM</span><span class="sub" id="ram-sub">System</span></div>
+          <div class="value medium split-value"><span id="ram-primary-a">--</span><span class="unit" id="ram-primary-a-unit"></span></div>
+          <div class="bar-wrap"><div class="bar" id="ram-bar"></div></div>
+          <div class="small-row"><span id="ram-extra-a-label">Used</span><strong id="ram-extra-a">--</strong></div>
+          <div class="small-row"><span id="ram-extra-b-label">Free</span><strong id="ram-extra-b">--</strong></div>
+        </article>
+
+        <article class="card configurable" data-card="vram">
+          <div class="card-head"><span id="vram-title">VRAM</span><span class="sub" id="vram-sub">GPU Memory</span></div>
+          <div class="value medium split-value"><span id="vram-primary-a">--</span><span class="unit" id="vram-primary-a-unit"></span></div>
+          <div class="bar-wrap"><div class="bar" id="vram-bar"></div></div>
+          <div class="small-row"><span id="vram-extra-a-label">Total</span><strong id="vram-extra-a">--</strong></div>
+          <div class="small-row"><span id="vram-extra-b-label">Free</span><strong id="vram-extra-b">--</strong></div>
+        </article>
+
+        <article class="card configurable" data-card="fans">
+          <div class="card-head"><span id="fans-title">Fans</span><span class="sub" id="fans-sub">Cooling</span></div>
+          <div class="big-row fans-row">
+            <div><div class="value small" id="fans-primary-a">--</div><div class="metric" id="fans-primary-a-label">Fan 1</div></div>
+            <div><div class="value small" id="fans-primary-b">--</div><div class="metric" id="fans-primary-b-label">Fan 2</div></div>
+          </div>
+          <div class="small-row fan-row-spacer"><span id="fans-extra-a-label">Speed</span><strong id="fans-extra-a">--</strong></div>
+          <div class="small-row"><span id="fans-extra-b-label">Source</span><strong id="fans-extra-b">--</strong></div>
+        </article>
+
+        <article class="card configurable" data-card="storage">
+          <div class="card-head"><span id="storage-title">Storage</span><span class="sub" id="storage-sub">Disk</span></div>
+          <div class="value medium split-value"><span id="storage-primary-a">--</span><span class="unit" id="storage-primary-a-unit"></span></div>
+          <div class="bar-wrap"><div class="bar" id="storage-bar"></div></div>
+          <div class="small-row"><span id="storage-extra-a-label">Temp</span><strong id="storage-extra-a">--</strong></div>
+          <div class="small-row"><span id="storage-extra-b-label">Free</span><strong id="storage-extra-b">--</strong></div>
+        </article>
+      </section>
+    </section>
+
+    <section id="fallback-page" class="page fallback-page">
+      <div class="fallback-card clock-card">
+        <div class="clock-header">
+          <div class="fallback-label">PC OFFLINE</div>
+          <div id="fallback-date" class="fallback-date">--</div>
+        </div>
+        <div id="fallback-time" class="fallback-time">--:--</div>
+      </div>
+
+      <div class="fallback-card weather-card">
+        <div class="weather-layout">
+          <div class="weather-left">
+            <div class="fallback-label">LOCAL WEATHER</div>
+            <div id="weather-location" class="weather-location">Local Area</div>
+            <div class="weather-temp split-value"><span id="weather-temp">--</span><span class="unit degree">°</span></div>
+          </div>
+
+          <div class="weather-right">
+            <div class="weather-condition">
+              <div id="weather-icon" class="weather-icon">--</div>
+              <div id="weather-summary" class="weather-summary">Loading weather</div>
+            </div>
+            <div class="weather-details">
+              <div><span>Feels</span><strong id="weather-feels">--</strong></div>
+              <div><span>Wind</span><strong id="weather-wind">--</strong></div>
+              <div><span>Humidity</span><strong id="weather-humidity">--</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fallback-card forecast-card">
+        <div class="forecast-item"><span id="day-0-name">Today</span><strong id="day-0-temp">--</strong><em id="day-0-rain">--</em></div>
+        <div class="forecast-item"><span id="day-1-name">Tomorrow</span><strong id="day-1-temp">--</strong><em id="day-1-rain">--</em></div>
+        <div class="forecast-item"><span id="day-2-name">Next day</span><strong id="day-2-temp">--</strong><em id="day-2-rain">--</em></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="preset-modal" class="modal hidden">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <div class="modal-label">CHANGE CARD</div>
+          <div id="modal-title" class="modal-title">Select preset</div>
+        </div>
+        <button id="modal-close" class="modal-close" type="button">×</button>
+      </div>
+      <div id="preset-list" class="preset-list"></div>
+      <button id="reset-layout" class="reset-layout" type="button">Reset saved layout</button>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
