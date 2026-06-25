@@ -13,8 +13,10 @@ Designed for an 800x480 Raspberry Pi touchscreen, but it can run in any browser.
 - Offline fallback page when the PC is off or unreachable
 - Offline page includes clock, date and local weather
 - Weather uses Open-Meteo and does not require an API key
+- Optional ADA balance display using Coinbase account data backend-only
+- Optional manual ADA balance fallback if you do not want to connect Coinbase
 - Raspberry Pi kiosk script included
-- No personal IPs, coordinates or local settings committed
+- No personal IPs, coordinates, private keys or local settings committed
 
 ## Requirements
 
@@ -88,6 +90,43 @@ You should see JSON beginning with:
 ```json
 {"id":0,"Text":"Sensor"
 ```
+
+## Optional ADA Coinbase balance
+
+The dashboard can show a compact ADA balance in the top bar and on the offline page.
+
+The Coinbase API credentials stay server-side on the Raspberry Pi. They are never placed in frontend files.
+
+Use a read-only Coinbase Advanced Trade / CDP API key with account or portfolio read access only.
+
+Add these to `.env`:
+
+```env
+COINBASE_API_KEY_NAME=organizations/YOUR_ORG_ID/apiKeys/YOUR_KEY_ID
+COINBASE_API_PRIVATE_KEY="-----BEGIN EC PRIVATE KEY-----\nYOUR_PRIVATE_KEY_HERE\n-----END EC PRIVATE KEY-----"
+CRYPTO_QUOTE_CURRENCY=DKK
+```
+
+Then restart:
+
+```bash
+sudo systemctl restart lhm-dashboard
+```
+
+Test:
+
+```bash
+curl -s http://127.0.0.1:3030/api/crypto/ada && echo
+```
+
+If you do not want to connect Coinbase yet, you can show a manual ADA amount instead:
+
+```env
+ADA_BALANCE_MANUAL=123.45
+CRYPTO_QUOTE_CURRENCY=DKK
+```
+
+When `ADA_BALANCE_MANUAL` is set, the dashboard skips Coinbase account lookup and only fetches the ADA spot price.
 
 ## systemd service
 
