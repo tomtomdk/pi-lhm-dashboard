@@ -13,6 +13,18 @@ Environment=WEATHER_LOCATION=Your City
 Environment=WEATHER_LAT=55.6761
 Environment=WEATHER_LON=12.5683
 Environment=WEATHER_TZ=Europe/Copenhagen
+
+# Optional ADA balance display.
+# Prefer placing Coinbase secrets in a separate EnvironmentFile instead of directly in this file.
+Environment=CRYPTO_QUOTE_CURRENCY=DKK
+Environment=COINBASE_API_KEY_NAME=organizations/YOUR_ORG_ID/apiKeys/YOUR_KEY_ID
+
+# Create this file locally and add COINBASE_API_PRIVATE_KEY there. Do not commit it.
+EnvironmentFile=-/home/YOUR_USER/pi-lhm-dashboard/.env
+
+# Optional manual fallback instead of Coinbase account lookup.
+# Environment=ADA_BALANCE_MANUAL=123.45
+
 ExecStart=/usr/bin/node /home/YOUR_USER/pi-lhm-dashboard/server.js
 Restart=always
 RestartSec=5
