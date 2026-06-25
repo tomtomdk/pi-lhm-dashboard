@@ -1,0 +1,76 @@
+.topbar {
+  grid-template-columns: 1fr auto auto 100px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.crypto-chip {
+  min-width: 132px;
+  max-width: 160px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(70,217,255,0.05);
+}
+
+.crypto-label {
+  color: #8b97ad;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.8px;
+  line-height: 1;
+}
+
+.crypto-main {
+  margin-top: 3px;
+  color: #f2f6ff;
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.crypto-sub {
+  margin-top: 3px;
+  color: #aab9df;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.fallback-right {
+  display: grid;
+  gap: 7px;
+  justify-items: end;
+}
+
+.fallback-crypto {
+  padding: 6px 9px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  text-align: right;
+}
+
+.fallback-crypto span,
+.fallback-crypto strong {
+  display: block;
+  white-space: nowrap;
+}
+
+.fallback-crypto span {
+  color: #aab9df;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.fallback-crypto strong {
+  margin-top: 3px;
+  color: #f2f6ff;
+  font-size: 14px;
+  font-weight: 950;
+}
