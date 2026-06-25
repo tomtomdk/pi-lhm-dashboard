@@ -1,6 +1,6 @@
 {
   "name": "pi-lhm-dashboard",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Touch-friendly Raspberry Pi dashboard for LibreHardwareMonitor with offline clock/weather fallback and optional ADA Coinbase balance.",
   "main": "server.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2"
   },
   "engines": {
