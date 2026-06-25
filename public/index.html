@@ -5,6 +5,7 @@
   <title>Pi LHM Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/crypto.css" />
 </head>
 <body>
   <main class="dashboard">
@@ -18,6 +19,12 @@
         <div class="status">
           <span id="status-dot" class="dot"></span>
           <span id="status-text">Connecting</span>
+        </div>
+
+        <div id="crypto-chip" class="crypto-chip hidden">
+          <div class="crypto-label">ADA</div>
+          <div class="crypto-main"><span id="crypto-ada-amount">--</span> ADA</div>
+          <div class="crypto-sub" id="crypto-ada-value">-- DKK</div>
         </div>
 
         <div class="clock" id="clock">--:--</div>
@@ -108,7 +115,13 @@
       <div class="fallback-card clock-card">
         <div class="clock-header">
           <div class="fallback-label">PC OFFLINE</div>
-          <div id="fallback-date" class="fallback-date">--</div>
+          <div class="fallback-right">
+            <div id="fallback-date" class="fallback-date">--</div>
+            <div id="fallback-crypto" class="fallback-crypto hidden">
+              <span id="fallback-crypto-amount">-- ADA</span>
+              <strong id="fallback-crypto-value">-- DKK</strong>
+            </div>
+          </div>
         </div>
         <div id="fallback-time" class="fallback-time">--:--</div>
       </div>
@@ -159,5 +172,6 @@
   </div>
 
   <script src="/app.js"></script>
+  <script src="/crypto.js"></script>
 </body>
 </html>
