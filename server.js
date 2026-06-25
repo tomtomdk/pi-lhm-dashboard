@@ -74,14 +74,67 @@ function normalizePrivateKey(key) {
   return String(key || "").replace(/\\n/g, "\n").trim();
 }
 
+function toBase64Url(buffer) {
+  return Buffer.from(buffer)
+    .toString("base64")
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
+}
+
+function buildPrivateKeyObject(rawKey) {
+  const key = normalizePrivateKey(rawKey);
+
+  if (!key) {
+    throw new Error("Missing Coinbase private key");
+  }
+
+  if (key.includes("BEGIN")) {
+    return crypto.createPrivateKey(key);
+  }
+
+  const privateKeyBytes = Buffer.from(key, "base64");
+
+  if (privateKeyBytes.length === 32) {
+    const ecdh = crypto.createECDH("prime256v1");
+    ecdh.setPrivateKey(privateKeyBytes);
+    const publicKey = ecdh.getPublicKey(null, "uncompressed");
+
+    return crypto.createPrivateKey({
+      format: "jwk",
+      key: {
+        kty: "EC",
+        crv: "P-256",
+        d: toBase64Url(privateKeyBytes),
+        x: toBase64Url(publicKey.subarray(1, 33)),
+        y: toBase64Url(publicKey.subarray(33, 65))
+      }
+    });
+  }
+
+  try {
+    return crypto.createPrivateKey({
+      key: privateKeyBytes,
+      format: "der",
+      type: "sec1"
+    });
+  } catch {
+    return crypto.createPrivateKey({
+      key: privateKeyBytes,
+      format: "der",
+      type: "pkcs8"
+    });
+  }
+}
+
 function createCoinbaseJwt(method, host, path) {
   const keyName = COINBASE_API_KEY_NAME.trim();
-  const privateKey = normalizePrivateKey(COINBASE_API_PRIVATE_KEY);
 
-  if (!keyName || !privateKey) {
+  if (!keyName || !COINBASE_API_PRIVATE_KEY) {
     throw new Error("Missing Coinbase API credentials");
   }
 
+  const privateKey = buildPrivateKeyObject(COINBASE_API_PRIVATE_KEY);
   const now = Math.floor(Date.now() / 1000);
   const uri = `${method.toUpperCase()} ${host}${path}`;
 
